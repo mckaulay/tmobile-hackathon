@@ -70,7 +70,7 @@ class Template extends React.Component {
       primaryText: 'Dashboard',
       leftIcon: <FontIcon>home</FontIcon>,
       component: Link,
-      to: '/'
+      to: '/dashboard'
     },
     { divider: true },
     { primaryText: 'Factoria', subheader: true },

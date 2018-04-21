@@ -10,7 +10,9 @@ import { connect } from 'react-redux'
 }))
 class Building extends React.Component {
   static propTypes = {
-    slug: PropTypes.string.isRequired
+    params: PropTypes.shape({
+      slug: PropTypes.string.isRequired
+    })
   }
   render ({ user, db, config } = this.props) {
     return (

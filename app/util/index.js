@@ -6,4 +6,4 @@ Utils are little bits of reusable code for things such as common filtering
 //  Redux utils - selectors select certain parts of state.
 export { default as selectors } from './selectors'
 //  Antd related utilities
-export { default as form } from './form'
+export { default as visualization } from './visualization'
