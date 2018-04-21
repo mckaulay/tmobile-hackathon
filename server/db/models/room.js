@@ -4,7 +4,7 @@ import autoref from 'mongoose-autorefs'
 import faker from 'faker'
 
 const RoomSchema = new mongoose.Schema({
-  name: { type: String, default: '' },
+  name: { type: String, required: true },
   building: { type: mongoose.Schema.Types.ObjectId, ref: 'Building' },
   occupied: Boolean,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -31,6 +31,7 @@ const dummyRooms = (min, ids, developer) => {
       for (let i = 0; i < min; i++) {
         fakes[i] = new Room({
           _id: ids.room[i],
+          name: faker.company.bsNoun(),
           building: ids.building[i],
           occupied: faker.random.boolean(),
           user: ids.user[i],

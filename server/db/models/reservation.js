@@ -5,6 +5,7 @@ import faker from 'faker'
 
 const ReservationSchema = new mongoose.Schema({
   time: { type: Date, required: true },
+  duration: Number,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
   present: Boolean
@@ -31,6 +32,7 @@ const dummyReservations = (min, ids, developer) => {
         fakes[i] = new Reservation({
           _id: ids.reservation[i],
           time: i % 2 === 0 ? faker.date.past() : faker.date.future(),
+          duration: faker.random.number(),
           user: ids.user[i],
           room: ids.room[i],
           present: faker.random.boolean()

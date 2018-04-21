@@ -6,6 +6,7 @@ import faker from 'faker'
 const BuildingSchema = new mongoose.Schema({
   slug: { type: String, required: true },
   name: { type: String, required: true },
+  location: { type: String, required: true },
   rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Room' }]
 })
 BuildingSchema.plugin(autoref, [
@@ -30,6 +31,7 @@ const dummyBuildings = (min, ids, developer) => {
           _id: ids.building[i],
           slug: faker.internet.userName(),
           name: faker.internet.domainName(),
+          location: faker.address.city(),
           rooms: [ids.room[i], ids.room[i]]
         })
       }

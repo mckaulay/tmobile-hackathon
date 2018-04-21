@@ -49,7 +49,7 @@ const testData = {
     screen: state.screen
   })),
   connectRequest(() => api.get('buildings', {
-    populate: ['rooms']
+    populate: [{ path: 'rooms', select: 'occupied' }]
   }))
 )
 class Dashboard extends React.Component {
