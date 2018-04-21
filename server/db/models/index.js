@@ -6,6 +6,9 @@ export function loadModels () {
   //  Auth and User data
   require('./config')
   require('./user')
+  require('./building')
+  require('./room')
+  require('./reservation')
 }
 
 /*
@@ -14,7 +17,10 @@ For express-restify-mongoose
 */
 import Config, { dummyConfigs } from './config'
 import User, { dummyUsers } from './user'
+import Building, { dummyBuildings } from './building'
+import Room, { dummyRooms } from './room'
+import Reservation, { dummyReservations } from './reservation'
 
-export { Config, User }
-export default { Config, User }
-export const restDummies = [ dummyConfigs, dummyUsers ]
+export { Config, User, Building, Room, Reservation }
+export default { Config, User, Building, Room, Reservation }
+export const restDummies = [ dummyConfigs, dummyUsers, dummyBuildings, dummyRooms, dummyReservations ]

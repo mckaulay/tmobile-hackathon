@@ -8,7 +8,7 @@ class Logger {
   constructor () {
     console.log('LOGS: Initializing Action Logging')
     this.logDir = path.resolve(process.cwd(), 'logs')
-    this.filename = config.has('prod') ? `${this.logDir}/-STF-WEB.log` : `${this.logDir}/-STF-DEV.log`
+    this.filename = config.has('prod') ? `${this.logDir}/-TMO-PROD.log` : `${this.logDir}/-TMO-DEV.log`
     //  { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
     this.logger = new winston.Logger({
       transports: [

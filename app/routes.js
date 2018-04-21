@@ -12,6 +12,9 @@ Please note, migration to v4 is a BREAKING change.
 https://github.com/reactGo/reactGo/pull/841/files
 */
 const SplitFrontPage = (l, c) => require.ensure([], () => c(null, require('./views/FrontPage/FrontPage').default))
+const SplitDashboard = (l, c) => require.ensure([], () => c(null, require('./views/Dashboard/Dashboard').default))
+const SplitBuilding = (l, c) => require.ensure([], () => c(null, require('./views/Building/Building').default))
+const SplitRoom = (l, c) => require.ensure([], () => c(null, require('./views/Room/Room').default))
 const SplitNotFound = (l, c) => require.ensure([], () => c(null, require('./views/NotFound/NotFound').default))
 
 /*
@@ -54,26 +57,10 @@ export default (store) => {
   return (
     <Route path='/' component={Template} >
       <IndexRoute getComponent={SplitFrontPage} />
-
-      {/* <Route path='/faq' getComponent={SplitFAQ} />
-      <Route path='/members' getComponent={SplitMembers} />
-      <Route path='/about' getComponent={SplitMembers} />
-      <Route path='/contact' getComponent={SplitContactUs} />
-
-      <Route path='/proposals' getComponent={SplitProposals} />
-      <Route path='/proposals/:year/:number' getComponent={SplitProposal} />
-      <Route path='/blocks' getComponent={SplitBlocks} />
-      <Route path='/blocks/:number' getComponent={SplitBlock} />
-
-      <Route path='/create' onEnter={requireAuth} getComponent={SplitCreate} />
-      <Route path='/edit/:id' onEnter={requireAuth} getComponent={SplitEdit} />
-      <Route path='/dashboard' onEnter={requireSTF} getComponent={SplitDashboard} />
-      <Route path='/voting' onEnter={requireSTF} getComponent={SplitVoting} />
-      <Route path='/docket' onEnter={requireAdmin} getComponent={SplitDocket} />
-      <Route path='/config' onEnter={requireAdmin} getComponent={SplitConfig} />
-
-      <Route path='/login/:redirect' onEnter={loginCallbackPatch} component={LoginCallbackRoute} /> */}
-
+      <Route path='/dashboard' getComponent={SplitDashboard} />
+      <Route path='/building/:slug' getComponent={SplitBuilding} />
+      <Route path='/room/:id' getComponent={SplitRoom} />
+      {/* <Route path='/edit/:id' onEnter={requireAuth} getComponent={SplitEdit} /> */}
       <Route path='*' getComponent={SplitNotFound} />
     </Route>
   )

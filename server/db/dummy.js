@@ -8,7 +8,10 @@ export default function () {
   console.log(`SEED: Lorem Ipsum Mode enabled. Seeding up to ${min} documents each...`)
   //  Generate an object containing ObjectIds for dummy objects.
   const ids = {
-    user: []
+    user: [],
+    building: [],
+    room: [],
+    reservation: []
   }
   Object.keys(ids).forEach((key) => {
     for (let i = 0; i < min; i++) {

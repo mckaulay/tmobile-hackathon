@@ -8,13 +8,14 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, default: '' },
   tmobileid: String,
   email: { type: String, lowercase: true },
+  reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }],
   /*
   Tokens and the google object are used by Oauth for the google (dev) strategy
   NOTE: These will never actually show up in production.
   */
   tokens: Array
 })
-UserSchema.plugin(autoref, ['stf.user'])
+UserSchema.plugin(autoref, ['reservations.user'])
 UserSchema.plugin(autopopulate)
 const User = mongoose.model('User', UserSchema)
 export default User
@@ -35,7 +36,8 @@ const dummyUsers = (min, ids, developer) => {
           _id: ids.user[i],
           name: faker.name.findName(),
           tmobileid: faker.internet.userName(),
-          email: faker.internet.email()
+          email: faker.internet.email(),
+          reservations: [ids.reservation[i], ids.reservation[i]]
         })
       }
       //  Create a special user for the webdev's profile

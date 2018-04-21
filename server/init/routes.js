@@ -11,6 +11,9 @@ export default (app) => {
   RESTful API
   */
   app.use(`/${version}/configs`, new controllers.Configs().api())
+  app.use(`/${version}/buildings`, new controllers.Buildings().api())
+  app.use(`/${version}/rooms`, new controllers.Rooms().api())
+  app.use(`/${version}/reservations`, new controllers.Reservations().api())
   console.log(`REST: API live for all ${Object.keys(controllers).length - 1} core models.`)
 
   // USER PROFILE ROUTES
