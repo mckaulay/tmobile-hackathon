@@ -129,11 +129,8 @@ class Template extends React.Component {
           meta={meta} link={link}
         />
         <NavigationDrawer
-          drawerTitle={user.authenticated
-            ? <span>{user.tmobileid}</span>
-            : <a href={ENV === 'production' ? '/auth/tmoid' : '/auth/google'}>Log In</a>
-          }
-          toolbarTitle={'Conference Dashboard'}
+          drawerTitle='Navigation'
+          toolbarTitle={'Conference Wizard'}
           contentClassName='main-content'
           navItems={navItems}
           mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}

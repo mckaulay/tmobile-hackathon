@@ -11,38 +11,6 @@ import { statusColors, statusLegend, DIVERGING_COLOR_SCALE } from '../../util/vi
 
 import api from '../../services'
 
-const testData = {
- "title": "analytics",
- "color": "#12939A",
- "children": [
-  {
-   "title": "cluster",
-   "children": [
-    {"title": "AgglomerativeCluster", "color": "#12939A", "size": 3938},
-    {"title": "CommunityStructure", "color": "#12939A", "size": 3812},
-    {"title": "HierarchicalCluster", "color": "#12939A", "size": 6714},
-    {"title": "MergeEdge", "color": "#12939A", "size": 743}
-   ]
-  },
-  {
-   "title": "graph",
-   "children": [
-    {"title": "BetweennessCentrality", "color": "#12939A", "size": 3534},
-    {"title": "LinkDistance", "color": "#12939A", "size": 5731},
-    {"title": "MaxFlowMinCut", "color": "#12939A", "size": 7840},
-    {"title": "ShortestPaths", "color": "#12939A", "size": 5914},
-    {"title": "SpanningTree", "color": "#12939A", "size": 3416}
-   ]
-  },
-  {
-   "title": "optimization",
-   "children": [
-    {"title": "AspectRatioBanker", "color": "#12939A", "size": 7074}
-   ]
-  }
- ]
-}
-
 @compose(
   connect(state => ({
     buildings: state.db.buildings,
@@ -59,7 +27,21 @@ class Dashboard extends React.Component {
   static defaultProps = {
     buildings: []
   }
-  render ({ user, db, config } = this.props) {
+  render ({ buildings } = this.props) {
+    let data = []
+    for (let building of buildings) {
+      const { name, rooms } = building
+      const used = rooms.filter(r => r.occupied === true).length
+      const unused = rooms.length - used
+      data.push({
+        title: name,
+        children: [
+          { title: 'Used', size: used, color: DIVERGING_COLOR_SCALE[0] },
+          { title: 'Unused', size: unused, color: DIVERGING_COLOR_SCALE[1] }
+        ]
+      })
+    }
+    console.log(data)
     return (
       <article>
         <Helmet title='Dashboard' />
@@ -70,11 +52,14 @@ class Dashboard extends React.Component {
         </section>
         <section>
           <Sunburst
-            // animation={{damping: 20, stiffness: 300}}
-            data={testData}
-            colorType='category'
-            colorRange={DIVERGING_COLOR_SCALE}
-            style={{stroke: '#fff'}}
+            animation={{damping: 20, stiffness: 300}}
+            // data={data}
+            data={{ title: 'Title', children: data }}
+            // colorType='category'
+            hideRootNode
+            colorType='literal'
+            // colorRange={DIVERGING_COLOR_SCALE}
+            style={{ stroke: '#fff' }}
             height={300}
             width={350}
           />
