@@ -1,0 +1,22 @@
+@import '~react-vis/dist/style.css';
+// Extra react-vis styles
+.rv-sunburst {
+  margin: auto;
+}
+.rv-inline {
+  display: inline-block;
+}
+
+// My custom styles for tooltips
+.rv-tooltip {
+  display: flex;
+  color: #fff;
+  background: #000;
+  alignItems: center;
+  padding: 5px;
+}
+.rv-box {
+  height: 16px;
+  width: 16px;
+  marginRight: 8px;
+}
