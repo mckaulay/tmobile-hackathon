@@ -9,7 +9,9 @@ import api from '../../services'
 
 import { Link } from 'react-router'
 
-import { Card, CardTitle, Avatar, List, ListItem } from 'react-md'
+import { Card, CardTitle, Avatar, List, ListItem, Subheader } from 'react-md'
+
+import moment from 'moment'
 
 @compose(
   connect(state => ({
@@ -18,7 +20,9 @@ import { Card, CardTitle, Avatar, List, ListItem } from 'react-md'
   })),
   connectRequest((props) => api.get('building', {
     query: { slug: props.params.slug },
-    populate: [{ path: 'rooms' }]
+    populate: [
+      { path: 'rooms', populate: [{ path: 'reservations', limit: 1 }] }
+    ]
   }))
 )
 class Building extends React.Component {
@@ -41,6 +45,7 @@ class Building extends React.Component {
         <Helmet title='Building' />
         <Card className='md-block-centered'>
           <CardTitle title={name} subtitle={`${location} Office`} />
+          <Subheader primaryText='Conference Rooms' />
           <List>
             {rooms && rooms.map((room, i) => (
               <Link key={i} to={`/room/${room._id}`}>
@@ -50,7 +55,7 @@ class Building extends React.Component {
                     suffix={room.occupied ? 'amber' : 'light-green'}
                   />}
                   primaryText={room.name}
-                  secondaryText={`Available until ${'...'}`}
+                  secondaryText={`Available until ${moment(room.reservations[0]).fromNow()}`}
                 />
               </Link>
             ))}
