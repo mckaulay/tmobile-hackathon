@@ -22,7 +22,8 @@ import moment from 'moment'
     query: { slug: props.params.slug },
     populate: [
       { path: 'rooms', populate: [{ path: 'reservations', limit: 1 }] }
-    ]
+    ],
+    force: true
   }))
 )
 class Building extends React.Component {
@@ -32,12 +33,16 @@ class Building extends React.Component {
     }),
     name: PropTypes.string,
     location: PropTypes.string,
-    rooms: PropTypes.array
+    rooms: PropTypes.array,
+    forceRequest: PropTypes.func
   }
   static defaultProps = {
     name: 'Loading...',
     location: 'Fetching Office Data',
     rooms: []
+  }
+  componentDidMount () {
+    setInterval(() => this.props.forceRequest(), 2000)
   }
   render ({ name, location, rooms } = this.props) {
     return (
