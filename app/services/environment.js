@@ -9,7 +9,7 @@ API keys and security files.
 const ENV = process.env.NODE_ENV
 const version = process.env.VERSION || 'v1'
 const API = ENV === 'production'
-  ? 'https://www.t-mobile.com/'
+  ? 'https://206.189.175.97/'
   : 'http://localhost:3000'
 const identityProvider = ENV === 'production'
   ? '/auth/google'

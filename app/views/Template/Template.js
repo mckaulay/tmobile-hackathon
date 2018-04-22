@@ -138,7 +138,7 @@ class Template extends React.Component {
           desktopDrawerType={NavigationDrawer.DrawerTypes.CLIPPED}
           toolbarActions={!user.authenticated
             ? <Button flat secondary iconChildren='input'
-              href={ENV === 'production' ? '/auth/tmoid' : '/auth/google'}
+              href={ENV === 'production' ? '/auth/google' : '/auth/google'}
             >
               Log In
             </Button>

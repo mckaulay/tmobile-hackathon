@@ -56,6 +56,7 @@ if (env === 'development') {
   const fs = require('fs')
   const redirect = config.get('redirect')
 
+  console.log(`PROD: Bootstrapping ${config.get('protocol')}:/${config.get('domain')}:${config.get('port')}`)
   console.log(`PROD: Configuring dual-servers (HTTP redirects ${redirect} to secure port ${port})`)
   const key = fs.readFileSync(
     path.resolve(process.cwd(), 'security', 'server-pvk.pem'),
