@@ -1,4 +1,8 @@
 article {
+  padding: 8px;
+  @media screen and (min-width: 992px) {
+    padding: 16px;
+  }
   .page {
     margin: 16px 4px;
     max-width: 1280px;

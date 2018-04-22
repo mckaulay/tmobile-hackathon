@@ -6,6 +6,7 @@ import faker from 'faker'
 const RoomSchema = new mongoose.Schema({
   name: { type: String, required: true },
   building: { type: mongoose.Schema.Types.ObjectId, ref: 'Building' },
+  floor: String,
   occupied: Boolean,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }]
@@ -33,6 +34,7 @@ const dummyRooms = (min, ids, developer) => {
           _id: ids.room[i],
           name: faker.company.bsNoun(),
           building: ids.building[i],
+          floor: faker.random.number(),
           occupied: faker.random.boolean(),
           user: ids.user[i],
           reservations: [ids.reservation[i], ids.reservation[i]]

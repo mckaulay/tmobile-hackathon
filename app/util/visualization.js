@@ -6,7 +6,7 @@ export const statusColors = {
   Reserved: '#6ec6ff',
   Occupied: '#ff7961'
 }
-const locationColors = {
+export const locationColors = {
   Factoria: '#e20074',  //  '#ff009f',
   Bothell: '#5a5a5a',
   Snoqualmie: '#999B9E'

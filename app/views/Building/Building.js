@@ -1,28 +1,61 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { connect } from 'react-redux'
 
-@connect(state => ({
-  user: state.user,
-  db: state.db,
-  config: state.config
-}))
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { connectRequest } from 'redux-query'
+import api from '../../services'
+
+import { Link } from 'react-router'
+
+import { Card, CardTitle, Avatar, List, ListItem } from 'react-md'
+
+@compose(
+  connect(state => ({
+    screen: state.screen,
+    ...state.db.building
+  })),
+  connectRequest((props) => api.get('building', {
+    query: { slug: props.params.slug },
+    populate: [{ path: 'rooms' }]
+  }))
+)
 class Building extends React.Component {
   static propTypes = {
     params: PropTypes.shape({
       slug: PropTypes.string.isRequired
-    })
+    }),
+    name: PropTypes.string,
+    location: PropTypes.string,
+    rooms: PropTypes.array
   }
-  render ({ user, db, config } = this.props) {
+  static defaultProps = {
+    name: 'Loading...',
+    location: 'Fetching Office Data',
+    rooms: []
+  }
+  render ({ name, location, rooms } = this.props) {
     return (
       <article>
         <Helmet title='Building' />
-        <h1>Building Page</h1>
-        <section>
-          <h3>Props stringified below</h3>
-          <code>{JSON.stringify(this.props)}</code>
-        </section>
+        <Card className='md-block-centered'>
+          <CardTitle title={name} subtitle={`${location} Office`} />
+          <List>
+            {rooms && rooms.map((room, i) => (
+              <Link key={i} to={`/room/${room._id}`}>
+                <ListItem
+                  leftAvatar={<Avatar
+                    icon={<h2 className='icon-text--raw'>{room.floor || 'G'}</h2>}
+                    suffix={room.occupied ? 'amber' : 'light-green'}
+                  />}
+                  primaryText={room.name}
+                  secondaryText={`Available until ${'...'}`}
+                />
+              </Link>
+            ))}
+          </List>
+        </Card>
       </article>
     )
   }
