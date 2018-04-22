@@ -26,8 +26,6 @@ import RPi.GPIO as GPIO
 import MFRC522
 import signal
 
-from multiprocessing import Process
-
 # Disable errors for insecure
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -43,47 +41,40 @@ def end_read(signal,frame):
     continue_reading = False
     GPIO.cleanup()
 
-# Set room status
-def set_room_status(occupied):
-    print "Starting Room"
-    data="{\"occupied\":" + str(occupied).lower() + "}"
-    headers={'content-type': 'application/json'}
-    try:
-	r = requests.patch(url="https://iothack.me/v1/room/5adbcf8c96d0713ca46038e1", headers=headers, data=data, verify=False)
-	print "Status Code:", r.status_code
-    except requests.exceptions.RequestException as e:
-	print "Error:", e
-
-# Set light status
-def set_light_status(status):
-    print "Starting Light"
-    urls={"On":"https://maker.ifttt.com/trigger/room_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM",
-	 "Off":"https://maker.ifttt.com/trigger/room_not_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM"}
-
-    try:
-	r = requests.post(urls[status])
-	if r.reason == "OK":
-	    print "Success:", status 
-    except:
-	print "Error"
-
 # Send data to endpoint that the card is detected
 def card_detected():
     print "Room Occupied"
 
-    room = Process(target = set_room_status(True))
-    room.start()
-    light = Process(target = set_light_status("On"))
-    light.start()
+    try:
+        r = requests.patch(url="https://iothack.me/v1/room/5adbcf8c96d0713ca46038e1", json="{\"occupied\":true}", verify=False)
+	print r.status
+    except requests.exceptions.RequestException as e:
+	print e
+        print "Error"
+
+
+#    try:
+#	r = requests.post("https://maker.ifttt.com/trigger/room_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM")
+#	if r.reason == "OK":
+#	    print "Success:", "Light On"
+#    except:
+#	print "Error"
 
 # Send data to endpoint that the card is removed
 def card_removed():
     print "Room Not Occupied"
 
-    room = Process(target = set_room_status(False))
-    room.start()
-    light = Process(target = set_light_status("Off"))
-    light.start()
+    try:
+        r = requests.patch(url="https://iothack.me/v1/room/5adbcf8c96d0713ca46038e1", json="{\"occupied\":false}", verify=False)
+    except:
+	print "Error"
+
+#    try:
+#	r = requests.post("https://maker.ifttt.com/trigger/room_not_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM")
+#	if r.reason == "OK":
+#	    print "Success:", "Light Off"
+#    except:
+#	print "Error"
 
 # Function to check the card status for changes
 def check_card_status(new_status):
