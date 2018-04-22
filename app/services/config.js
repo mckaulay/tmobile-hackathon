@@ -1,5 +1,4 @@
 import api from './api'
-import { message } from 'antd'
 /* *****
 ACTIONS
 ***** */
@@ -14,10 +13,10 @@ export const updateConfig = (update, options) => {
     dispatch(api.patch('configs', update, options))
     .then(({ body }) => {
       dispatch(updateConfigAction(body))
-      message.success('Site config updated!')
+      console.warn('Site config updated!')
     })
     .catch(err => {
-      message.error('Unable to update site configuration')
+      console.warn('Unable to update site configuration')
       console.log(err)
     })
   }

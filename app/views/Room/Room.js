@@ -7,24 +7,13 @@ import { connect } from 'react-redux'
 import { connectRequest } from 'redux-query'
 import api from '../../services'
 
-import { Link } from 'react-router'
+import { Card, CardTitle, DatePicker, Avatar, List, ListItem, Subheader } from 'react-md'
 
-import { Card, CardTitle, CardText,
-  DatePicker,
-  Avatar,
-  Divider,
-  FontIcon,
-  List,
-  ListItem,
-  Subheader
-} from 'react-md'
-
-// import get from 'lodash/get'
 import moment from 'moment'
 
-const sortDates = (dates) => dates.sort((a, b) =>
-  moment(b).format('X') - moment(a).format('X')
-)
+// const sortDates = (dates) => dates.sort((a, b) =>
+//   moment(b).format('X') - moment(a).format('X')
+// )
 
 @compose(
   connect(state => ({

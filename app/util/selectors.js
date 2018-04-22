@@ -1,5 +1,4 @@
 import { browserHistory } from 'react-router'
-import { message } from 'antd'
 /*
 Given a list of contacts, select a specific role, like the primary PoC
 connect((state, props) => ({
@@ -26,7 +25,7 @@ const redirectUnaffiliated = (user, contacts) => {
     for (let c of contacts) authorized.push(c.tmobileid)
     if (!authorized.includes(user.tmobileid)) {
       browserHistory.push(`/`)
-      message.warning(`Sorry! ${user.tmobileid} is unauthorized to visit this page. Authorized users include: ${authorized}`, 10)
+      console.warn(`Sorry! ${user.tmobileid} is unauthorized to visit this page. Authorized users include: ${authorized}`, 10)
     }
   }
 }

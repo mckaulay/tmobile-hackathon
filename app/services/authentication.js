@@ -1,7 +1,5 @@
 import { API } from './environment'
 import { mutateAsync } from 'redux-query'
-//  A toast to the (lack of) user!
-import { message } from 'antd'
 
 /*
 We abide loosely to ducks structure.
@@ -26,10 +24,10 @@ export const endSession = () => {
     }))
     .then(() => {
       dispatch(removeUser())
-      message.success('Thanks for stopping by!')
+      console.warn('Thanks for stopping by!')
     })
     .catch(err => {
-      message.error('Unable to connect to Shibboleth')
+      console.warn('Unable to connect to Shibboleth')
       console.log(err)
     })
   }
