@@ -17,4 +17,9 @@ export default (app) => {
   app.use(passport.session())
   // Load strategies based on the env
   google(app, passport)
+  //  Delete sessions
+  app.delete('/sessions', (req, res) => {
+    req.logout()
+    res.sendStatus(200)
+  })
 }
