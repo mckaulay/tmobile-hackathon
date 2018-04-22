@@ -59,11 +59,11 @@ if (env === 'development') {
   console.log(`PROD: Bootstrapping ${config.get('protocol')}:/${config.get('domain')}:${config.get('port')}`)
   console.log(`PROD: Configuring dual-servers (HTTP redirects ${redirect} to secure port ${port})`)
   const key = fs.readFileSync(
-    path.resolve(process.cwd(), 'security', 'server-pvk.pem'),
+    path.resolve(process.cwd(), 'security', 'privatekey.ppk'),
     'utf-8'
   )
   const cert = fs.readFileSync(
-    path.resolve(process.cwd(), 'security', 'server-cert.pem'),
+    path.resolve(process.cwd(), 'security', 'cert.ppk'),
     'utf-8'
   )
 
