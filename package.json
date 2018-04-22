@@ -1,8 +1,8 @@
 {
   "name": "TMO-IOT-Hackathon",
-  "version": "0.0.1",
-  "description": "Full-stack webapp with universal React & Redux, Hot Reloading, Time Travel Debugging and Modular CSS. Featuring Ant Design, the UW Brand and integration with Shibboleth Auth w/ an alternative (Google OAuth) in development. Built with prime consideration for scalability, practicality and agile feature development.",
-  "repository": "https://github.com/RcKeller/STF-Refresh",
+  "version": "0.0.2",
+  "description": "Full-stack webapp with universal React & Redux, Hot Reloading, Time Travel Debugging and Modular CSS. Built with prime consideration for scalability, practicality and agile feature development.",
+  "repository": "https://github.com/RcKeller/tmobile-hackathon",
   "main": "index.js",
   "scripts": {
     "sequelize": "node_modules/.bin/sequelize",

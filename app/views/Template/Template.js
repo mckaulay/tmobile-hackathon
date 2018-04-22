@@ -76,42 +76,49 @@ class Template extends React.Component {
     { primaryText: 'Factoria', subheader: true },
     {
       primaryText: 'Newport Tower',
+      secondaryText: ' 3650 131st Ave SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/NP-Tower'
+      to: '/building/NP'
     }, {
       primaryText: 'Newport 2',
+      secondaryText: ' 3625 132nd Avenue SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/NP-2'
+      to: '/building/NP2'
     }, {
       primaryText: 'Newport Terrace',
+      secondaryText: '3617 131st Ave SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/NP-Terrace'
+      to: '/building/NPT'
     }, {
       primaryText: 'Newport 4',
+      secondaryText: ' 3655 131st Ave SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/NP-4'
+      to: '/building/NP4'
     }, {
       primaryText: 'Newport 5',
+      secondaryText: '12920 SE 38th St',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/NP-5'
+      to: '/building/NP5'
     },
     { divider: true },
     { primaryText: 'Bothell', subheader: true },
     {
       primaryText: 'Canyon Pointe North',
+      secondaryText: '22213 30th Dr SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/CP-N'
+      to: '/building/CPN'
     }, {
       primaryText: 'Canyon Pointe South',
+      secondaryText: '22309 30th Dr SE',
       leftIcon: <FontIcon>location_city</FontIcon>,
       component: Link,
-      to: '/building/CP-S'
+      to: '/building/CPS'
     },
     { divider: true },
     { primaryText: 'Snoqualmie', subheader: true },
@@ -125,12 +132,12 @@ class Template extends React.Component {
     return (
       <div>
         <Helmet
-          titleTemplate='%s - T-Mobile'
+          titleTemplate='%s - T-Mobile CC'
           meta={meta} link={link}
         />
         <NavigationDrawer
           drawerTitle='Navigation'
-          toolbarTitle={'Conference Wizard'}
+          toolbarTitle={'Conference Check'}
           contentClassName='main-content'
           navItems={navItems}
           mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}
