@@ -25,8 +25,7 @@ import requests
 import RPi.GPIO as GPIO
 import MFRC522
 import signal
-
-from multiprocessing import Process
+import grequests
 
 # Disable errors for insecure
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -44,15 +43,26 @@ def end_read(signal,frame):
     GPIO.cleanup()
 
 # Set room status
-def set_room_status(occupied):
-    print "Starting Room"
-    data="{\"occupied\":" + str(occupied).lower() + "}"
+def set_status(status):
+    async_list=[]
+
+    # Update Backend
+    data="{\"occupied\":" + str(status).lower() + "}"
     headers={'content-type': 'application/json'}
+    room = grequests.patch(url="https://iothack.me/v1/room/5adbcf8c96d0713ca46038e1", headers=headers, data=data, verify=False)
+    async_list.append(room)
+
+    # Update Lights server
+    lightURLS={"True":"https://maker.ifttt.com/trigger/room_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM",
+	     "False":"https://maker.ifttt.com/trigger/room_not_in_use/with/key/bqxtTWTzxbTA50nGUi0rmM"}
+    light = grequests.post(lightURLS[str(status)])
+    async_list.append(light)
+
+    # Perform both backend and lights requests concurrently
     try:
-	r = requests.patch(url="https://iothack.me/v1/room/5adbcf8c96d0713ca46038e1", headers=headers, data=data, verify=False)
-	print "Status Code:", r.status_code
-    except requests.exceptions.RequestException as e:
-	print "Error:", e
+	grequests.map(async_list)
+    except:
+	print "Error"
 
 # Set light status
 def set_light_status(status):
@@ -62,28 +72,19 @@ def set_light_status(status):
 
     try:
 	r = requests.post(urls[status])
-	if r.reason == "OK":
-	    print "Success:", status 
-    except:
+	print "Status Code:", r.status_code
+    except requests.exceptions.RequestException as e:
 	print "Error"
 
-# Send data to endpoint that the card is detected
+# Update the server that the card was detected
 def card_detected():
     print "Room Occupied"
+    set_status(True)
 
-    room = Process(target = set_room_status(True))
-    room.start()
-    light = Process(target = set_light_status("On"))
-    light.start()
-
-# Send data to endpoint that the card is removed
+# Update server that the card was removed
 def card_removed():
     print "Room Not Occupied"
-
-    room = Process(target = set_room_status(False))
-    room.start()
-    light = Process(target = set_light_status("Off"))
-    light.start()
+    set_status(False)
 
 # Function to check the card status for changes
 def check_card_status(new_status):
