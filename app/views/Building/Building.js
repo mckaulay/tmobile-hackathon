@@ -33,16 +33,12 @@ class Building extends React.Component {
     }),
     name: PropTypes.string,
     location: PropTypes.string,
-    rooms: PropTypes.array,
-    forceRequest: PropTypes.func
+    rooms: PropTypes.array
   }
   static defaultProps = {
     name: 'Loading...',
     location: 'Fetching Office Data',
     rooms: []
-  }
-  componentDidMount () {
-    setInterval(() => this.props.forceRequest(), 2000)
   }
   render ({ name, location, rooms } = this.props) {
     return (

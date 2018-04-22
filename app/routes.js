@@ -23,7 +23,7 @@ const SplitNotFound = (l, c) => require.ensure([], () => c(null, require('./view
  * state from the store after it has been authenticated.
  */
 export default (store) => {
-  const loginRoute = ENV === 'production' ? '/login' : '/auth/google'
+  const loginRoute = ENV === 'production' ? '/auth/google' : '/auth/google'
   const requireAuth = (nextState, replace, callback) => {
     const { user } = store.getState()
     const authenticated = user.authenticated || false
@@ -56,7 +56,8 @@ export default (store) => {
 
   return (
     <Route path='/' component={Template} >
-      <IndexRoute getComponent={SplitFrontPage} />
+      {/* <IndexRoute getComponent={SplitFrontPage} /> */}
+      <IndexRoute getComponent={SplitDashboard} />
       <Route path='/dashboard' getComponent={SplitDashboard} />
       <Route path='/building/:slug' getComponent={SplitBuilding} />
       <Route path='/room/:id' getComponent={SplitRoom} />

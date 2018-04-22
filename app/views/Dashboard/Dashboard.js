@@ -17,15 +17,20 @@ import Visualization from './FreeRoomsByBuilding'
     screen: state.screen
   })),
   connectRequest(() => api.get('buildings', {
-    populate: [{ path: 'rooms', select: 'occupied' }]
+    populate: [{ path: 'rooms', select: 'occupied' }],
+    force: true
   }))
 )
 class Dashboard extends React.Component {
   static propTypes = {
-    buildings: PropTypes.array
+    buildings: PropTypes.array,
+    forceRequest: PropTypes.func
   }
   static defaultProps = {
     buildings: []
+  }
+  componentDidMount () {
+    setInterval(() => this.props.forceRequest(), 2000)
   }
   render (
     { buildings } = this.props

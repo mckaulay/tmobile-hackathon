@@ -24,7 +24,8 @@ import moment from 'moment'
     populate: [
       { path: 'building', select: 'name' },
       { path: 'reservations' }
-    ]
+    ],
+    force: true
   }))
 )
 class Room extends React.Component {
